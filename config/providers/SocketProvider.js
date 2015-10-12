@@ -5,6 +5,10 @@ module.exports = {
     services: {
         getZipByCity: {
             handler: fetch.getZipByCity
+        },
+        findAll:
+        {
+            handler: fetch.findAll
         }
     }
 

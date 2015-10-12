@@ -8,8 +8,8 @@ evo.module('peControllers', ['evo'])
         $scope.message = 'Hello world';
         var obj = {city: 'BARRE'};
 
-
-        evoAPI.callFunction('getZipByCity', obj)
+        //I should create a service and load this only once
+        evoAPI.callFunction('findAll', obj)
             .then(function(output){
             console.log(output);
                 $scope.table.data = output.result;
@@ -22,33 +22,33 @@ evo.module('peControllers', ['evo'])
 		$scope.table = {
             options: {
                 pagination: {
-                    itemsPerPage: 20
+                    itemsPerPage: 100
                 },
-                height: "300px",
+
                 columns: {
                     "_id": "string",
                     "city": "string",
                     "pop": "string",
                     "state": "string",
+                    "loc": "string",
                     "edit": {
                         type: "button",
                         icon: "fa fa-pencil-square-o",
                         width: "50px",
                         textAlign: "center",
-                        onClick: function (e, item, column, index) {
+                        onclick: function (e, item, column, index) {
                             console.log("Clicked Edit")
-                        },
-                        "delete": {
-                            type: "button",
-                            icon: ["fa", "fa-trash"],
-                            width: "60px",
-                            textAlign: "center",
-                            class: "btn-danger",
-                            onclick: function (e, item, column, index) {
-                                console.log("Clicked Delete")
-                            }
                         }
-
+                    },
+                    "delete": {
+                        type: "button",
+                        icon: ["fa", "fa-trash"],
+                        width: "60px",
+                        textAlign: "center",
+                        class: "btn-danger",
+                        onclick: function (e, item, column, index) {
+                            console.log("Clicked Delete")
+                        }
                     }
                 }
             },
@@ -59,4 +59,15 @@ evo.module('peControllers', ['evo'])
 	}]);
 
 
+evo.module("evo.evoTraining.services", []).service("seedService", [
+    "evoAPI",
+    function(evoAPI){
+        var self = this;
+        self.data = {};
 
+        self.fetchSeed = function(){evoAPI.callFunction('findAll').then(function(data)
+        {
+            self.data = data.result;
+        })
+        }}
+]);
