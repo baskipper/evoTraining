@@ -2,7 +2,7 @@ module.exports = {
 	port : 10000,
 	locales : ['en'],
 	authenticationServer : 'localhost:3000',
-    product_code: 'training',
+    product_code: 'peseed',
 	appBase : '',
 	client : {
 		auth_server : 'authenticationServer',
