@@ -11,10 +11,9 @@ evo.module('peControllers', ['evo'])
         //I should create a service and load this only once
         evoAPI.callFunction('findAll', obj)
             .then(function (output) {
-                console.log(output);
                 $scope.table.data = output.result;
             }, function (err) {
-                console.log(err);
+                $log.error(err);
             });
 
 
@@ -37,6 +36,10 @@ evo.module('peControllers', ['evo'])
                         textAlign: "center",
                         onclick: function (e, item, column, index) {
                             console.log("Clicked Edit")
+                            console.log(e)
+                            console.log($scope.table.data[index])
+                            console.log(column)
+                            console.log(index)
                         }
                     },
                     "delete": {
