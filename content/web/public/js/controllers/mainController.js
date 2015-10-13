@@ -2,7 +2,7 @@
 
 /* Controllers */
 evo.module('peControllers', ['evo'])
-	.controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', function($rootScope, $scope, $log, evoAPI) {
+    .controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', function ($rootScope, $scope, $log, evoAPI) {
 
         $log.log('Loading web main controller');
         $scope.message = 'Hello world';
@@ -10,19 +10,18 @@ evo.module('peControllers', ['evo'])
 
         //I should create a service and load this only once
         evoAPI.callFunction('findAll', obj)
-            .then(function(output){
-            console.log(output);
+            .then(function (output) {
+                console.log(output);
                 $scope.table.data = output.result;
-        }, function(err)
-            {
+            }, function (err) {
                 console.log(err);
             });
 
 
-		$scope.table = {
+        $scope.table = {
             options: {
                 pagination: {
-                    itemsPerPage: 100
+                    itemsPerPage: 10
                 },
 
                 columns: {
@@ -56,18 +55,19 @@ evo.module('peControllers', ['evo'])
             data: {}
         };
 
-	}]);
+    }]);
 
 
 evo.module("evo.evoTraining.services", []).service("seedService", [
     "evoAPI",
-    function(evoAPI){
+    function (evoAPI) {
         var self = this;
         self.data = {};
 
-        self.fetchSeed = function(){evoAPI.callFunction('findAll').then(function(data)
-        {
-            self.data = data.result;
-        })
-        }}
+        self.fetchSeed = function () {
+            evoAPI.callFunction('findAll').then(function (data) {
+                self.data = data.result;
+            })
+        }
+    }
 ]);
