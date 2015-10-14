@@ -3,24 +3,24 @@
 // Declare app level module which depends on filters, and services
 var app = evo.module('peApp', [
     'evo',
-    'evo.peseed.services',
+    'evo.evoTraining.services',
     'evo.common.directives',
     'peControllers',
     'ngCookies',
     'ngRoute'
 ]);
 
-app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.
-        when('/', {
-            templateUrl: 'hello',
-            controller: 'MainController'
-        }).otherwise({redirectTo: '/'})
-    ;
+      when('/', {
+		templateUrl: 'hello',
+        controller: 'MainController'
+      }).otherwise({redirectTo: '/'})
+	;
     $locationProvider.html5Mode(true);
 }]);
 
-app.run(["seedService", function (seedService) {
+app.run(["seedService", function(seedService){
     seedService.fetchSeed();
 }]);
 
@@ -28,7 +28,7 @@ app.run(["seedService", function (seedService) {
 
 /* Controllers */
 evo.module('peControllers', ['evo'])
-	.controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', function($rootScope, $scope, $log, evoAPI) {
+    .controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', function ($rootScope, $scope, $log, evoAPI) {
 
         $log.log('Loading web main controller');
         $scope.message = 'Hello world';
@@ -36,19 +36,17 @@ evo.module('peControllers', ['evo'])
 
         //I should create a service and load this only once
         evoAPI.callFunction('findAll', obj)
-            .then(function(output){
-            console.log(output);
+            .then(function (output) {
                 $scope.table.data = output.result;
-        }, function(err)
-            {
-                console.log(err);
+            }, function (err) {
+                $log.error(err);
             });
 
 
-		$scope.table = {
+        $scope.table = {
             options: {
                 pagination: {
-                    itemsPerPage: 100
+                    itemsPerPage: 10
                 },
 
                 columns: {
@@ -64,6 +62,10 @@ evo.module('peControllers', ['evo'])
                         textAlign: "center",
                         onclick: function (e, item, column, index) {
                             console.log("Clicked Edit")
+                            console.log(e)
+                            console.log($scope.table.data[index])
+                            console.log(column)
+                            console.log(index)
                         }
                     },
                     "delete": {
@@ -78,18 +80,18 @@ evo.module('peControllers', ['evo'])
                     }
                 }
             },
-
+            //maybe add a watch?
             data: {}
         };
 
-	}]);
+    }]);
 
 
 
 
 "use strict";
 
-evo.module("evo.peseed.services", []).service("seedService", [
+evo.module("evo.evoTraining.services", []).service("seedService", [
     "evoAPI",
     function (evoAPI) {
         var self = this;
