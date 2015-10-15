@@ -12,6 +12,14 @@ module.exports = {
                 'external': true,
                 'handler': restService.addRecord
             }
+        ],
+        '/api/zip/update': [
+            {
+                'method': 'post',
+                'version': '0.1.0',
+                'external': true,
+                'handler': restService.updateRecord
+            }
         ]
     }
 };

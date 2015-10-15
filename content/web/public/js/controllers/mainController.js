@@ -9,7 +9,7 @@ evo.module('peControllers', ['evo'])
         var obj = {city: 'BARRE'};
 
         //I should create a service and load this only once
-        evoAPI.callFunction('findAll', obj)
+        evoAPI.callFunction('getZipByCity', obj)
             .then(function (output) {
                 $scope.table.data = output.result;
             }, function (err) {

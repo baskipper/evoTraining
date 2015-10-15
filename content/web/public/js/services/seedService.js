@@ -22,6 +22,17 @@ evo.module("evo.evoTraining.services", []).service("seedService", [
                 {
                     console.log(err);
                 });
+        });
+
+        $rootScope.$on('updateRecord', function(event, message){
+            console.log('seedService: Received event with message ' + JSON.stringify(message.data));
+            evoAPI.callFunction('updateRecord', message.data)
+                .then(function(){
+                    self.fetchSeed();
+                }, function(err)
+                {
+                    console.log(err);
+                });
         })
 
     }
