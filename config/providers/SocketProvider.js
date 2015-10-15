@@ -9,6 +9,9 @@ module.exports = {
         findAll:
         {
             handler: fetch.findAll
+        },
+        addRecord: {
+            handler: fetch.addRecord
         }
     },
     emitters:

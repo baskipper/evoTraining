@@ -14,7 +14,14 @@ evo.module("evo.evoTraining.services", []).service("seedService", [
         };
 
         $rootScope.$on('addRecord', function(event, message){
-            console.log('seedService: Received event with message ' + JSON.stringify(message));
+            console.log('seedService: Received event with message ' + JSON.stringify(message.data));
+            evoAPI.callFunction('addRecord', message.data)
+                .then(function(){
+                    self.fetchSeed();
+                }, function(err)
+                {
+                    console.log(err);
+                });
         })
 
     }
