@@ -54,7 +54,10 @@ evo.module('peControllers', ['evo'])
                     }
                 }
             },
-            //maybe add a watch?
+            //maybe add a watch? and an emitter in rest?
+            //it looks like rootscope and emitters can both listen to the event bus
+            //so, my dummy handler needs to put something on the event bus, I need to declare an
+            //emitter in my socketProvider, and I need to listen with rootscope and do something, probably in my seedservice
             data: {}
         };
 

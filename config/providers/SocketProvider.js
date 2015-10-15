@@ -10,6 +10,13 @@ module.exports = {
         {
             handler: fetch.findAll
         }
+    },
+    emitters:
+    {
+        events:[{
+            'event': 'addRecord',
+            'room': '*'
+        }]
     }
 
 };

@@ -10,7 +10,7 @@ module.exports = {
                 'method': 'post',
                 'version': '0.1.0',
                 'external': true,
-                'handler': restService.readRequest
+                'handler': restService.addRecord
             }
         ]
     }
