@@ -3,7 +3,7 @@
 	"txtNext": "Next",
 	"txtPrevious": "Previous",
 	"Web": "Web",
-	"deleteConfirm": "deleteConfirm",
+	"deleteConfirm": "Are you sure you want to delete record ",
 	"editConfirm": "Editing record ",
 	"city": "City",
 	"state": "State",
@@ -11,5 +11,6 @@
 	"lon": "Longitude",
 	"pop": "Population",
 	"update": "Update",
-	"cancel": "Cancel"
+	"cancel": "Cancel",
+	"delete": "Delete"
 }

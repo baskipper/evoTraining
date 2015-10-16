@@ -3,6 +3,7 @@ extends layout
 block body
     script(src='#{productRoute}/web/js/controllers/mainController.js')
     script(src='#{productRoute}/web/js/controllers/editController.js')
+    script(src='#{productRoute}/web/js/controllers/deleteController.js')
     script(src='#{productRoute}/web/js/services/zipService.js')
     script(src='#{productRoute}/web/js/app.js')
     //script(src='#{productRoute}/web/tmp/training.js')
@@ -13,3 +14,4 @@ block body
         
     include partials/hello.jade
     include partials/edit.jade
+    include partials/delete.jade

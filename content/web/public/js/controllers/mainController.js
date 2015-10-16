@@ -6,7 +6,7 @@ evo.module('peControllers', ['evo'])
 
         $log.log('Loading web main controller');
         $scope.message = 'Hello world';
-        $scope.zipData = undefined;
+
 
 
         /*
@@ -25,12 +25,6 @@ evo.module('peControllers', ['evo'])
         $rootScope.$on("dataFetched", function(){
             $scope.table.data = undefined;
             $scope.table.data = zipService.data;
-        });
-
-
-        $scope.$watch("zipData", function () {
-            console.log('watch fired')
-            $scope.table.data = $scope.zipData;
         });
 
         $scope.table = {
@@ -70,4 +64,6 @@ evo.module('peControllers', ['evo'])
             },
             data: {}
         };
+
+        $scope.table.data = zipService.data;
     }]);

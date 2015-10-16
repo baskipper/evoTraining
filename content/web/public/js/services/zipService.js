@@ -32,9 +32,21 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
             })
         };
 
+        self.removeRecord = function(record)
+        {
+            return evoAPI.callFunction('removeRecord', record).then(function(data)
+            {
+                self.fetchSeed();
+                return data.result;
+            }, function(err)
+            {
+                console.log(err);
+            })
+        };
+
         self.updateRecord = function (newRecord){
             return evoAPI.callFunction('updateRecord', newRecord).then(function(){
-                self.fetchSmallSeed();
+                self.fetchSeed();
             }, function (err){
                 console.log(err);
             })

@@ -19,6 +19,10 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         .when('/edit/:id', {
             templateUrl: 'edit',
             controller: 'EditCtrl'
+        })
+        .when('/delete/:id', {
+            templateUrl: 'delete',
+            controller: 'DeleteCtrl'
         });
     $locationProvider.html5Mode(true);
 }]);
