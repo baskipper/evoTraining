@@ -7,21 +7,6 @@ evo.module('peControllers', ['evo'])
         $log.log('Loading web main controller');
         $scope.message = 'Hello world';
 
-
-
-        /*
-        //I should create a service and load this only once
-        evoAPI.callFunction('getZipByCity', obj)
-            .then(function (output) {
-                $scope.zipData = output.result;
-            }, function (err) {
-                $log.error(err);
-            });
-*/
-        /*zipService.fetchSmallSeed().then(function(){
-            //$scope.zipData = seedService.data;
-        });*/
-
         $rootScope.$on("dataFetched", function(){
             $scope.table.data = undefined;
             $scope.table.data = zipService.data;

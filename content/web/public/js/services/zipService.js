@@ -3,7 +3,8 @@
 evo.module("evo.evoTraining.services", []).service("zipService", [
     "evoAPI",
     "$rootScope",
-    function (evoAPI, $rootScope) {
+    "$log",
+    function (evoAPI, $rootScope, $log) {
         var self = this;
         self.data = {};
 
@@ -11,44 +12,43 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
             evoAPI.callFunction('findAll').then(function (data) {
                 self.data = data.result;
                 $rootScope.$broadcast("dataFetched");
+            }, function (err) {
+                $log.error(err);
             })
         };
 
         self.fetchSmallSeed = function () {
             return evoAPI.callFunction('getZipByCity', 'BARRE').then(function (data) {
                 self.data = data.result;
-                console.log(self.data);
                 $rootScope.$broadcast("dataFetched");
                 return self.data;
+            }, function (err) {
+                $log.error(err);
             })
         };
 
-        self.fetchRecord = function(recordID){
-            return evoAPI.callFunction('getRecordByID', recordID).then(function(data){
+        self.fetchRecord = function (recordID) {
+            return evoAPI.callFunction('getRecordByID', recordID).then(function (data) {
                 return data.result;
-            }, function (err)
-            {
-                console.log(err);
+            }, function (err) {
+                $log.error(err);
             })
         };
 
-        self.removeRecord = function(record)
-        {
-            return evoAPI.callFunction('removeRecord', record).then(function(data)
-            {
+        self.removeRecord = function (record) {
+            return evoAPI.callFunction('removeRecord', record).then(function (data) {
                 self.fetchSeed();
                 return data.result;
-            }, function(err)
-            {
-                console.log(err);
+            }, function (err) {
+                $log.error(err);
             })
         };
 
-        self.updateRecord = function (newRecord){
-            return evoAPI.callFunction('updateRecord', newRecord).then(function(){
+        self.updateRecord = function (newRecord) {
+            return evoAPI.callFunction('updateRecord', newRecord).then(function () {
                 self.fetchSeed();
-            }, function (err){
-                console.log(err);
+            }, function (err) {
+                $log.error(err);
             })
         };
 
@@ -58,8 +58,7 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
                 .then(function () {
                     self.fetchSeed();
                 }, function (err) {
-                    var foo;
-                    console.log(err);
+                    $log.error(err);
                 });
         });
 
@@ -69,9 +68,8 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
                 .then(function () {
                     self.fetchSeed();
                 }, function (err) {
-                    console.log(err);
+                    $log.error(err);
                 });
         })
-
     }
 ]);
