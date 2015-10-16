@@ -27,6 +27,7 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
     $locationProvider.html5Mode(true);
 }]);
 
-app.run(["zipService", function (zipService) {
+app.run(["zipService", "events", function (zipService, events) {
+    events.dispatch(events.types.VIEW_LOADING);
     zipService.fetchSeed();
 }]);

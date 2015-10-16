@@ -2,7 +2,7 @@
 
 /* Controllers */
 evo.module('peControllers', ['evo'])
-    .controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', 'zipService', '$location', function ($rootScope, $scope, $log, evoAPI, zipService, loc) {
+    .controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', 'zipService', '$location', 'events', function ($rootScope, $scope, $log, evoAPI, zipService, loc, events) {
 
         $log.log('Loading web main controller');
         $scope.message = 'Hello world';
@@ -10,6 +10,7 @@ evo.module('peControllers', ['evo'])
         $rootScope.$on("dataFetched", function(){
             $scope.table.data = undefined;
             $scope.table.data = zipService.data;
+            events.dispatch(events.types.VIEW_LOADED);
         });
 
         $scope.table = {
