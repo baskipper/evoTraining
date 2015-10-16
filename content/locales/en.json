@@ -4,5 +4,12 @@
 	"txtPrevious": "Previous",
 	"Web": "Web",
 	"deleteConfirm": "deleteConfirm",
-	"editConfirm": "Editing record "
+	"editConfirm": "Editing record ",
+	"city": "City",
+	"state": "State",
+	"lat": "Latitude",
+	"lon": "Longitude",
+	"pop": "Population",
+	"update": "Update",
+	"cancel": "Cancel"
 }

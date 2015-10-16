@@ -1,5 +1,33 @@
 script#edit(type='text/ng-template')
     h1
         |   #{__('editConfirm')} {{recordID}}
+    br
 
+    label
+        |   #{__('city')}
     input(type="text", ng-model="record.city")
+    br
+    label
+        |   #{__('state')}
+    input(type="text", ng-model="record.state")
+    br
+    label
+        |   #{__('lat')}
+    input(type="text", ng-model="record.loc[0]")
+    br
+    label
+        |   #{__('lon')}
+    input(type="text", ng-model="record.loc[1]")
+    br
+    label
+        |   #{__('pop')}
+    input(type="text", ng-model="record.pop")
+    br
+    button.btn-default.btn-lg(ng-click="update()")
+        |   #{__('update')}
+    button.btn-default.btn-lg(ng-disabled="!validUpdate()", ng-click="cancel()")
+        |   #{__('cancel')}
+    br
+    span(ng-if="showError")
+        |   All fields are required
+

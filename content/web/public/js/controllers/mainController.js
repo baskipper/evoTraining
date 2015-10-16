@@ -18,9 +18,9 @@ evo.module('peControllers', ['evo'])
                 $log.error(err);
             });
 */
-        zipService.fetchSmallSeed().then(function(){
+        /*zipService.fetchSmallSeed().then(function(){
             //$scope.zipData = seedService.data;
-        });
+        });*/
 
         $rootScope.$on("dataFetched", function(){
             $scope.table.data = undefined;
@@ -51,7 +51,8 @@ evo.module('peControllers', ['evo'])
                         width: "50px",
                         textAlign: "center",
                         onclick: function (e, item, column, index) {
-                            loc.path('/edit/12');
+                            var id = $scope.table.data[index]._id;
+                            loc.path('/edit/' + id);
                         }
                     },
                     "delete": {
@@ -61,16 +62,12 @@ evo.module('peControllers', ['evo'])
                         textAlign: "center",
                         class: "btn-danger",
                         onclick: function (e, item, column, index) {
-                            console.log("Clicked Delete")
+                            var id = $scope.table.data[index]._id;
+                            loc.path('/delete/' + id);
                         }
                     }
                 }
             },
-            //maybe add a watch? and an emitter in rest?
-            //it looks like rootscope and emitters can both listen to the event bus
-            //so, my dummy handler needs to put something on the event bus, I need to declare an
-            //emitter in my socketProvider, and I need to listen with rootscope and do something, probably in my seedservice
             data: {}
         };
-
     }]);

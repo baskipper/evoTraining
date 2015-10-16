@@ -10,6 +10,7 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
         self.fetchSeed = function () {
             evoAPI.callFunction('findAll').then(function (data) {
                 self.data = data.result;
+                $rootScope.$broadcast("dataFetched");
             })
         };
 
@@ -43,7 +44,7 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
             console.log('zipService: Received event with message ' + JSON.stringify(message.data));
             evoAPI.callFunction('addRecord', message.data)
                 .then(function () {
-                    self.fetchSmallSeed();
+                    self.fetchSeed();
                 }, function (err) {
                     var foo;
                     console.log(err);
@@ -54,7 +55,7 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
             console.log('zipService: Received event with message ' + JSON.stringify(message.data));
             evoAPI.callFunction('updateRecord', message.data)
                 .then(function () {
-                    self.fetchSmallSeed();
+                    self.fetchSeed();
                 }, function (err) {
                     console.log(err);
                 });
