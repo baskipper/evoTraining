@@ -23,22 +23,23 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
     $locationProvider.html5Mode(true);
 }]);
 
-app.run(["seedService", function (seedService) {
-    seedService.fetchSeed();
+app.run(["zipService", function (zipService) {
+    zipService.fetchSeed();
 }]);
 
 'use strict';
 
 /* Controllers */
 evo.module('peControllers', ['evo'])
-    .controller('EditCtrl', [function () {
-        var foo = 'bar';
+    .controller('EditCtrl', ['$scope', '$log', 'evoAPI', 'zipService', '$routeParams', function ($scope, $log, evoAPI, zipService, $routeParams) {
+        $scope.recordID = $routeParams.id;
+
     }]);
 'use strict';
 
 /* Controllers */
 evo.module('peControllers', ['evo'])
-    .controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', 'seedService', '$location', function ($rootScope, $scope, $log, evoAPI, seedService, loc) {
+    .controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', 'zipService', '$location', function ($rootScope, $scope, $log, evoAPI, zipService, loc) {
 
         $log.log('Loading web main controller');
         $scope.message = 'Hello world';
@@ -54,13 +55,13 @@ evo.module('peControllers', ['evo'])
                 $log.error(err);
             });
 */
-        seedService.fetchSmallSeed().then(function(){
+        zipService.fetchSmallSeed().then(function(){
             //$scope.zipData = seedService.data;
         });
 
         $rootScope.$on("dataFetched", function(){
             $scope.table.data = undefined;
-            $scope.table.data = seedService.data;
+            $scope.table.data = zipService.data;
         });
 
 
@@ -112,7 +113,7 @@ evo.module('peControllers', ['evo'])
     }]);
 "use strict";
 
-evo.module("evo.evoTraining.services", []).service("seedService", [
+evo.module("evo.evoTraining.services", []).service("zipService", [
     "evoAPI",
     "$rootScope",
     function (evoAPI, $rootScope) {
@@ -135,7 +136,7 @@ evo.module("evo.evoTraining.services", []).service("seedService", [
         };
 
         $rootScope.$on('addRecord', function (event, message) {
-            console.log('seedService: Received event with message ' + JSON.stringify(message.data));
+            console.log('zipService: Received event with message ' + JSON.stringify(message.data));
             evoAPI.callFunction('addRecord', message.data)
                 .then(function () {
                     self.fetchSmallSeed();
@@ -146,7 +147,7 @@ evo.module("evo.evoTraining.services", []).service("seedService", [
         });
 
         $rootScope.$on('updateRecord', function (event, message) {
-            console.log('seedService: Received event with message ' + JSON.stringify(message.data));
+            console.log('zipService: Received event with message ' + JSON.stringify(message.data));
             evoAPI.callFunction('updateRecord', message.data)
                 .then(function () {
                     self.fetchSmallSeed();

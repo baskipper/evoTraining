@@ -2,7 +2,7 @@
 
 /* Controllers */
 evo.module('peControllers', ['evo'])
-    .controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', 'seedService', '$location', function ($rootScope, $scope, $log, evoAPI, seedService, loc) {
+    .controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', 'zipService', '$location', function ($rootScope, $scope, $log, evoAPI, zipService, loc) {
 
         $log.log('Loading web main controller');
         $scope.message = 'Hello world';
@@ -18,13 +18,13 @@ evo.module('peControllers', ['evo'])
                 $log.error(err);
             });
 */
-        seedService.fetchSmallSeed().then(function(){
+        zipService.fetchSmallSeed().then(function(){
             //$scope.zipData = seedService.data;
         });
 
         $rootScope.$on("dataFetched", function(){
             $scope.table.data = undefined;
-            $scope.table.data = seedService.data;
+            $scope.table.data = zipService.data;
         });
 
 

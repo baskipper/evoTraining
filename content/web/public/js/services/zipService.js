@@ -1,6 +1,6 @@
 "use strict";
 
-evo.module("evo.evoTraining.services", []).service("seedService", [
+evo.module("evo.evoTraining.services", []).service("zipService", [
     "evoAPI",
     "$rootScope",
     function (evoAPI, $rootScope) {
@@ -22,8 +22,25 @@ evo.module("evo.evoTraining.services", []).service("seedService", [
             })
         };
 
+        self.fetchRecord = function(recordID){
+            return evoAPI.callFunction('getRecordByID', recordID).then(function(data){
+                return data.result;
+            }, function (err)
+            {
+                console.log(err);
+            })
+        };
+
+        self.updateRecord = function (newRecord){
+            return evoAPI.callFunction('updateRecord', newRecord).then(function(){
+                self.fetchSmallSeed();
+            }, function (err){
+                console.log(err);
+            })
+        };
+
         $rootScope.$on('addRecord', function (event, message) {
-            console.log('seedService: Received event with message ' + JSON.stringify(message.data));
+            console.log('zipService: Received event with message ' + JSON.stringify(message.data));
             evoAPI.callFunction('addRecord', message.data)
                 .then(function () {
                     self.fetchSmallSeed();
@@ -34,7 +51,7 @@ evo.module("evo.evoTraining.services", []).service("seedService", [
         });
 
         $rootScope.$on('updateRecord', function (event, message) {
-            console.log('seedService: Received event with message ' + JSON.stringify(message.data));
+            console.log('zipService: Received event with message ' + JSON.stringify(message.data));
             evoAPI.callFunction('updateRecord', message.data)
                 .then(function () {
                     self.fetchSmallSeed();

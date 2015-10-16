@@ -14,7 +14,12 @@ module.exports = {
         },
         updateRecord: {
             handler: fetch.updateRecord
+        },
+        getRecordByID: {
+            handler: fetch.getRecordByID
         }
+
+
     },
     emitters: {
         events: [
