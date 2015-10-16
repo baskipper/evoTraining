@@ -2,7 +2,7 @@
 
 /* Controllers */
 evo.module('peControllers', ['evo'])
-    .controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', 'seedService', function ($rootScope, $scope, $log, evoAPI, seedService) {
+    .controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', 'seedService', '$location', function ($rootScope, $scope, $log, evoAPI, seedService, loc) {
 
         $log.log('Loading web main controller');
         $scope.message = 'Hello world';
@@ -51,11 +51,7 @@ evo.module('peControllers', ['evo'])
                         width: "50px",
                         textAlign: "center",
                         onclick: function (e, item, column, index) {
-                            console.log("Clicked Edit")
-                            console.log(e)
-                            console.log($scope.table.data[index])
-                            console.log(column)
-                            console.log(index)
+                            loc.path('/edit/12');
                         }
                     },
                     "delete": {
@@ -78,6 +74,3 @@ evo.module('peControllers', ['evo'])
         };
 
     }]);
-
-
-

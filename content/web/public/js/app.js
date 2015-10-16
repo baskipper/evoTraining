@@ -10,16 +10,19 @@ var app = evo.module('peApp', [
     'ngRoute'
 ]);
 
-app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider.
-      when('/', {
-		templateUrl: 'hello',
-        controller: 'MainController'
-      }).otherwise({redirectTo: '/'})
-	;
+        when('/', {
+            templateUrl: 'hello',
+            controller: 'MainController'
+        })
+        .when('/edit/:id', {
+            templateUrl: 'edit',
+            controller: 'EditCtrl'
+        });
     $locationProvider.html5Mode(true);
 }]);
 
-app.run(["seedService", function(seedService){
+app.run(["seedService", function (seedService) {
     seedService.fetchSeed();
 }]);

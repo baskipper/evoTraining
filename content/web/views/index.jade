@@ -2,10 +2,14 @@ extends layout
 
 block body
     script(src='#{productRoute}/web/js/controllers/mainController.js')
+    script(src='#{productRoute}/web/js/controllers/editController.js')
     script(src='#{productRoute}/web/js/services/seedService.js')
     script(src='#{productRoute}/web/js/app.js')
+    //script(src='#{productRoute}/web/tmp/training.js')
+
 
     h1 #{__('Web')}
     div(ng-view)
         
     include partials/hello.jade
+    include partials/edit.jade

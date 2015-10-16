@@ -28,6 +28,7 @@ evo.module("evo.evoTraining.services", []).service("seedService", [
                 .then(function () {
                     self.fetchSmallSeed();
                 }, function (err) {
+                    var foo;
                     console.log(err);
                 });
         });

@@ -2,5 +2,7 @@
 	"txtSearch": "Search",
 	"txtNext": "Next",
 	"txtPrevious": "Previous",
-	"Web": "Web"
+	"Web": "Web",
+	"deleteConfirm": "deleteConfirm",
+	"editConfirm": "Editing record "
 }
