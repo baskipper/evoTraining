@@ -2,20 +2,36 @@
 
 /* Controllers */
 evo.module('peControllers', ['evo'])
-    .controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', function ($rootScope, $scope, $log, evoAPI) {
+    .controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', 'seedService', function ($rootScope, $scope, $log, evoAPI, seedService) {
 
         $log.log('Loading web main controller');
         $scope.message = 'Hello world';
-        var obj = {city: 'BARRE'};
+        $scope.zipData = undefined;
 
+
+        /*
         //I should create a service and load this only once
         evoAPI.callFunction('getZipByCity', obj)
             .then(function (output) {
-                $scope.table.data = output.result;
+                $scope.zipData = output.result;
             }, function (err) {
                 $log.error(err);
             });
+*/
+        seedService.fetchSmallSeed().then(function(){
+            //$scope.zipData = seedService.data;
+        });
 
+        $rootScope.$on("dataFetched", function(){
+            $scope.table.data = undefined;
+            $scope.table.data = seedService.data;
+        });
+
+
+        $scope.$watch("zipData", function () {
+            console.log('watch fired')
+            $scope.table.data = $scope.zipData;
+        });
 
         $scope.table = {
             options: {

@@ -13,24 +13,31 @@ evo.module("evo.evoTraining.services", []).service("seedService", [
             })
         };
 
-        $rootScope.$on('addRecord', function(event, message){
+        self.fetchSmallSeed = function () {
+            return evoAPI.callFunction('getZipByCity', 'BARRE').then(function (data) {
+                self.data = data.result;
+                console.log(self.data);
+                $rootScope.$broadcast("dataFetched");
+                return self.data;
+            })
+        };
+
+        $rootScope.$on('addRecord', function (event, message) {
             console.log('seedService: Received event with message ' + JSON.stringify(message.data));
             evoAPI.callFunction('addRecord', message.data)
-                .then(function(){
-                    self.fetchSeed();
-                }, function(err)
-                {
+                .then(function () {
+                    self.fetchSmallSeed();
+                }, function (err) {
                     console.log(err);
                 });
         });
 
-        $rootScope.$on('updateRecord', function(event, message){
+        $rootScope.$on('updateRecord', function (event, message) {
             console.log('seedService: Received event with message ' + JSON.stringify(message.data));
             evoAPI.callFunction('updateRecord', message.data)
-                .then(function(){
-                    self.fetchSeed();
-                }, function(err)
-                {
+                .then(function () {
+                    self.fetchSmallSeed();
+                }, function (err) {
                     console.log(err);
                 });
         })
