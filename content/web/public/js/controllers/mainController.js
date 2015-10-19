@@ -1,18 +1,21 @@
 'use strict';
 
-/* Controllers */
+/*
+* This controller manages the primary view, containing the table of all the items in the Zip collection.
+* */
 evo.module('peControllers', ['evo'])
     .controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', 'zipService', '$location', 'events', function ($rootScope, $scope, $log, evoAPI, zipService, loc, events) {
 
         $log.log('Loading web main controller');
-        $scope.message = 'Hello world';
 
+        //This rebuilds the table whenever an update or addition is made to the collection
         $rootScope.$on("dataFetched", function(){
             $scope.table.data = undefined;
             $scope.table.data = zipService.data;
             events.dispatch(events.types.VIEW_LOADED);
         });
 
+        //Initialize the table columns and data
         $scope.table = {
             options: {
                 pagination: {
@@ -40,5 +43,6 @@ evo.module('peControllers', ['evo'])
             data: {}
         };
 
+        //Set the table data to the data fetched by the zipService
         $scope.table.data = zipService.data;
     }]);
