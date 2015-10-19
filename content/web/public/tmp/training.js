@@ -154,17 +154,6 @@ evo.module('peControllers', ['evo'])
                             var id = $scope.table.data[index]._id;
                             loc.path('/edit/' + id);
                         }
-                    },
-                    "delete": {
-                        type: "button",
-                        icon: ["fa", "fa-trash"],
-                        width: "60px",
-                        textAlign: "center",
-                        class: "btn-danger",
-                        onclick: function (e, item, column, index) {
-                            var id = $scope.table.data[index]._id;
-                            loc.path('/delete/' + id);
-                        }
                     }
                 }
             },
@@ -212,6 +201,11 @@ evo.module('evo.evoTraining.services')
     }]);
 "use strict";
 
+/*
+*
+* This service contains functions for interacting with the Zip collection from the frontend.
+*
+* */
 evo.module("evo.evoTraining.services", []).service("zipService", [
     "evoAPI",
     "$rootScope",
@@ -221,6 +215,9 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
         var self = this;
         self.data = {};
 
+        /*
+        * This method fetches the entire collection to seed the app, and stores the data in a global variable.
+        * */
         self.fetchSeed = function () {
             evoAPI.callFunction('findAll').then(function (data) {
                 self.data = data.result;
@@ -230,6 +227,11 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
             })
         };
 
+        /*
+         * This method fetches a small portion of the collection, for testing purposes only.
+         *
+         * @return A promise containing the subset of data.
+         * */
         self.fetchSmallSeed = function () {
             return evoAPI.callFunction('getZipByCity', 'BARRE').then(function (data) {
                 self.data = data.result;
@@ -239,6 +241,11 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
                 $log.error(err);
             })
         };
+
+        /**
+         *
+         * This method fetches a single record, used to fetch one to update.
+         */
 
         self.fetchRecord = function (recordID) {
             return evoAPI.callFunction('getRecordByID', recordID).then(function (data) {

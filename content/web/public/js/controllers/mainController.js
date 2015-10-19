@@ -34,17 +34,6 @@ evo.module('peControllers', ['evo'])
                             var id = $scope.table.data[index]._id;
                             loc.path('/edit/' + id);
                         }
-                    },
-                    "delete": {
-                        type: "button",
-                        icon: ["fa", "fa-trash"],
-                        width: "60px",
-                        textAlign: "center",
-                        class: "btn-danger",
-                        onclick: function (e, item, column, index) {
-                            var id = $scope.table.data[index]._id;
-                            loc.path('/delete/' + id);
-                        }
                     }
                 }
             },
