@@ -21,6 +21,13 @@ evo.module('peControllers', ['evo'])
                 pagination: {
                     itemsPerPage: 10
                 },
+                toolbar:
+                {
+                    search: {
+                        by: true,
+                        exclude : ['edit']
+                    }
+                },
 
                 columns: {
                     "_id": "string",
