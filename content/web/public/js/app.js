@@ -27,6 +27,7 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
     $locationProvider.html5Mode(true);
 }]);
 
+//Launch the loading gif, and begin importing data when the app first loads.
 app.run(["zipService", "events", function (zipService, events) {
     events.dispatch(events.types.VIEW_LOADING);
     zipService.fetchSeed();
