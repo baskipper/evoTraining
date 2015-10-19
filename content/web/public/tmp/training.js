@@ -27,6 +27,7 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
     $locationProvider.html5Mode(true);
 }]);
 
+//Launch the loading gif, and begin importing data when the app first loads.
 app.run(["zipService", "events", function (zipService, events) {
     events.dispatch(events.types.VIEW_LOADING);
     zipService.fetchSeed();
@@ -62,8 +63,14 @@ evo.module('peControllers')
     }]);
 'use strict';
 
-/* Controllers */
-evo.module('peControllers', ['evo'])
+/*
+*
+* This was to be used to manage deletion of records, until I realized it was not part of the spec.
+*
+* */
+
+ /*
+ evo.module('peControllers', ['evo'])
     .controller('DeleteCtrl', ['$scope', '$log', 'zipService', '$routeParams', '$location', 'evoAPI',
         function ($scope, $log, zipService, $routeParams, $location, evoAPI) {
 
@@ -84,22 +91,28 @@ evo.module('peControllers', ['evo'])
             };
 
         }]);
+    */
 'use strict';
 
-/* Controllers */
+/*
+* This controller manages the updating of records from the browser
+* */
 evo.module('peControllers', ['evo'])
     .controller('EditCtrl', ['$scope', '$log', 'zipService', '$routeParams', '$location',
         function ($scope, $log, zipService, $routeParams, $location) {
 
+            //fetch the record based off of the parameter passed through the URL
             $scope.recordID = $routeParams.id;
             zipService.fetchRecord($scope.recordID).then(function (record) {
                 $scope.record = record;
             });
 
+            //Redirect to root on cancel button click
             $scope.cancel = function () {
                 $location.path('/');
             };
 
+            //Update record and redirect to root on Update button click, show error message if a field is empty
             $scope.update = function () {
                 if ($scope.validUpdate()) {
                     zipService.updateRecord($scope.record);
@@ -111,6 +124,7 @@ evo.module('peControllers', ['evo'])
                 }
             };
 
+            //Check that no fields are empty
             $scope.validUpdate = function () {
                 return ($scope.record.city.length > 0 && $scope.record.state.length > 0
                 && $scope.record.loc[0].length > 0 && $scope.record.loc[1].length > 0
@@ -120,19 +134,22 @@ evo.module('peControllers', ['evo'])
         }]);
 'use strict';
 
-/* Controllers */
+/*
+* This controller manages the primary view, containing the table of all the items in the Zip collection.
+* */
 evo.module('peControllers', ['evo'])
     .controller('MainController', ['$rootScope', '$scope', '$log', 'evoAPI', 'zipService', '$location', 'events', function ($rootScope, $scope, $log, evoAPI, zipService, loc, events) {
 
         $log.log('Loading web main controller');
-        $scope.message = 'Hello world';
 
+        //This rebuilds the table whenever an update or addition is made to the collection
         $rootScope.$on("dataFetched", function(){
             $scope.table.data = undefined;
             $scope.table.data = zipService.data;
             events.dispatch(events.types.VIEW_LOADED);
         });
 
+        //Initialize the table columns and data
         $scope.table = {
             options: {
                 pagination: {
@@ -160,6 +177,7 @@ evo.module('peControllers', ['evo'])
             data: {}
         };
 
+        //Set the table data to the data fetched by the zipService
         $scope.table.data = zipService.data;
     }]);
 evo.module('evo.common.directives')
@@ -202,10 +220,10 @@ evo.module('evo.evoTraining.services')
 "use strict";
 
 /*
-*
-* This service contains functions for interacting with the Zip collection from the frontend.
-*
-* */
+ *
+ * This service contains functions for interacting with the Zip collection from the frontend.
+ *
+ * */
 evo.module("evo.evoTraining.services", []).service("zipService", [
     "evoAPI",
     "$rootScope",
@@ -216,8 +234,8 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
         self.data = {};
 
         /*
-        * This method fetches the entire collection to seed the app, and stores the data in a global variable.
-        * */
+         * This method fetches the entire collection to seed the app, and stores the data in a global variable.
+         * */
         self.fetchSeed = function () {
             evoAPI.callFunction('findAll').then(function (data) {
                 self.data = data.result;
@@ -245,6 +263,10 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
         /**
          *
          * This method fetches a single record, used to fetch one to update.
+         *
+         * @param recordID The ID of the record to fetch.
+         *
+         * @return A promise containing a single record
          */
 
         self.fetchRecord = function (recordID) {
@@ -255,15 +277,32 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
             })
         };
 
-        self.removeRecord = function (record) {
-            return evoAPI.callFunction('removeRecord', record).then(function (data) {
-                self.fetchSeed();
-                return data.result;
-            }, function (err) {
-                $log.error(err);
-            })
-        };
+        /*
+         *
+         * This method was to be used to delete a given record, until I realized it was not part of the spec.
+         *
+         * @param record The record to delete.
+         *
+         * @return A then-able promise.
+         * */
 
+        /*         self.removeRecord = function (record) {
+         return evoAPI.callFunction('removeRecord', record).then(function (data) {
+         self.fetchSeed();
+         return data.result;
+         }, function (err) {
+         $log.error(err);
+         })
+         };
+         */
+
+        /*
+         * This method updates a given record, then re-fetches the zip collection. Used by the browser method.
+         *
+         * @param newRecord The record to update.
+         *
+         * @returns A then-able promise
+         */
         self.updateRecord = function (newRecord) {
             return evoAPI.callFunction('updateRecord', newRecord).then(function () {
                 self.fetchSeed();
@@ -272,6 +311,10 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
             })
         };
 
+        /*
+        *
+        * This method adds a new record, used by the REST client method.
+        * */
         $rootScope.$on('addRecord', function (event, message) {
             events.dispatch(events.types.VIEW_LOADING);
             console.log('zipService: Received event with message ' + JSON.stringify(message.data));
@@ -284,6 +327,11 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
                 });
         });
 
+
+        /*
+         *
+         * This method updates a record, used by the REST client method.
+         * */
         $rootScope.$on('updateRecord', function (event, message) {
             events.dispatch(events.types.VIEW_LOADING);
             console.log('zipService: Received event with message ' + JSON.stringify(message.data));
