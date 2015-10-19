@@ -34,7 +34,9 @@ module.exports = {
 	},
 	data : {
 		providers : [
-            'SocketProvider.js'
+            'SocketProvider.js',
+            'RESTprovider.js'
+
 
 		],
 		socket : {

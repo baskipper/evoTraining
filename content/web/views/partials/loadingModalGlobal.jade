@@ -1,0 +1,5 @@
+script#loadingModalGlobal(type='text/ng-template')
+    div(id="loading-global", ng-show="isLoading")
+        div.spinner
+            div(ng-repeat="bar in bars(12)", class="bar{{$index + 1}}")
+        div.modal-backdrop

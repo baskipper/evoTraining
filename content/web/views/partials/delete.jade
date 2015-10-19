@@ -1,0 +1,29 @@
+script#delete(type='text/ng-template')
+    h1
+        |   #{__('deleteConfirm')} {{recordID}} ?
+    br
+
+    label
+        |   #{__('city')}:
+    span(ng-bind="record.city")
+    br
+    label
+        |   #{__('state')}:
+    span(ng-bind="record.state")
+    br
+    label
+        |   #{__('lat')}:
+    span(ng-bind="record.loc[0]")
+    br
+    label
+        |   #{__('lon')}:
+    span(ng-bind="record.loc[1]")
+    br
+    label
+        |   #{__('pop')}:
+    span(ng-bind="record.pop")
+    br
+    button.btn-default.btn-lg(ng-click="delete()")
+        |   #{__('delete')}
+    button.btn-default.btn-lg(ng-click="cancel()")
+        |   #{__('cancel')}
