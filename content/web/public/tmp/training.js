@@ -278,8 +278,10 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
 
         self.fetchRecord = function (recordID) {
             return evoAPI.callFunction('getRecordByID', recordID).then(function (data) {
+                events.dispatch(events.types.VIEW_LOADED);
                 return data.result;
             }, function (err) {
+                events.dispatch(events.types.VIEW_LOADED);
                 $log.error(err);
             })
         };
