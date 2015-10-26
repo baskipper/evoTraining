@@ -1,9 +1,9 @@
 'use strict';
 
-describe('Some Controller', function () {
+describe('Main Controller', function () {
     var expect = chai.expect;
 
-    var ctrl, scope, evoAPI, zipService, log, location, events;
+    var ctrl, scope, evoAPI, zipService, log, location, events, sandbox;
 
     beforeEach(module('evo'));
     //If you want to scope.apply, keep this.
@@ -22,6 +22,7 @@ describe('Some Controller', function () {
         evoAPI = _evoAPI_;
         log = _$log_;
         location = _$location_;
+        sandbox = sinon.sandbox.create();
         ctrl = $controller('MainController', {
             $scope: scope,
             events: events,
@@ -36,6 +37,13 @@ describe('Some Controller', function () {
 
     it('should exist', function () {
         expect(ctrl).to.not.be.undefined;
+    });
+
+    describe('scope variables', function(){
+        it('should initialize scope variables', function(){
+                expect(scope.table).to.not.be.undefined;
+            }
+        );
     });
 });
 
