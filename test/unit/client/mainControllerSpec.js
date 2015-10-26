@@ -6,10 +6,7 @@ describe('Main Controller', function() {
 	var expect = chai.expect,
 	    should = chai.should();
 
-    beforeEach(module('ngCookies'));
-    beforeEach(module('ngRoute'));
-    beforeEach(module('cai.services'));
-	beforeEach(module('peApp'));
+    beforeEach(module('evo'));
 	beforeEach(module('peControllers'));
 
     describe('display', function() {
@@ -18,7 +15,7 @@ describe('Main Controller', function() {
         var scope, ctrl;
     	beforeEach(inject(function($rootScope) {
             scope = $rootScope.$new();
-            inject(function($controller, apiProvider){
+            inject(function($controller){
                 ctrl = $controller('MainController', {
                     $scope: scope
                 });

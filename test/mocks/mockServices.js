@@ -8,7 +8,7 @@ catch(e) {
     caiServices = angular.module('cai.services', []);
 };
 caiServices
-    .factory('apiProvider', function($q,$rootScope) {
+    .factory('evoAPI', function($q,$rootScope) {
         var scope = $rootScope.$new();
         var deferred = $q.defer();
         var promise = deferred.promise;
