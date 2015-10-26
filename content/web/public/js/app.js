@@ -13,7 +13,7 @@ var app = evo.module('peApp', [
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider.
         when('/', {
-            templateUrl: 'hello',
+            templateUrl: 'mainTable',
             controller: 'MainController'
         })
         .when('/edit/:id', {

@@ -100,7 +100,7 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
         * */
         $rootScope.$on('addRecord', function (event, message) {
             events.dispatch(events.types.VIEW_LOADING);
-            console.log('zipService: Received event with message ' + JSON.stringify(message.data));
+            $log.debug('zipService: Received event with message ' + JSON.stringify(message.data));
             evoAPI.callFunction('addRecord', message.data)
                 .then(function () {
                     self.fetchSeed();
@@ -117,7 +117,7 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
          * */
         $rootScope.$on('updateRecord', function (event, message) {
             events.dispatch(events.types.VIEW_LOADING);
-            console.log('zipService: Received event with message ' + JSON.stringify(message.data));
+            $log.debug('zipService: Received event with message ' + JSON.stringify(message.data));
             evoAPI.callFunction('updateRecord', message.data)
                 .then(function () {
                     self.fetchSeed();

@@ -5,8 +5,6 @@ evo.module('evo.evoTraining.services')
         var types = {
             VIEW_LOADING: 'viewLoading',
             VIEW_LOADED: 'viewLoaded',
-            TICKETS_REFRESHED: 'ticketsRefreshed',
-            ORDERS_REFRESHED: 'ordersRefreshed',
             API_TIMEOUT_ERROR: 'apiTimeout'
         };
         function dispatch(event, args) {

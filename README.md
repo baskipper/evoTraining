@@ -57,7 +57,7 @@ These two files are the primary means of interacting with the database.
 This file handles any calls made through a REST client
 
 ```
-./web/views/partials/hello.jade
+./web/views/partials/mainTable.jade
 ./web/public/js/controllers/mainController.js
 ```
 
