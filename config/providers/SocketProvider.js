@@ -17,9 +17,6 @@ module.exports = {
         },
         getRecordByID: {
             handler: fetch.getRecordByID
-        },
-        removeRecord: {
-            handler: fetch.removeRecord
         }
 
 
