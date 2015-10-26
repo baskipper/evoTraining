@@ -1,32 +1,41 @@
 'use strict';
 
+describe('Some Controller', function () {
+    var expect = chai.expect;
 
-describe('Main Controller', function() {
-	var mocks = {};
-	var expect = chai.expect,
-	    should = chai.should();
+    var ctrl, scope, evoAPI, zipService, log, location, events;
 
     beforeEach(module('evo'));
-	beforeEach(module('peControllers'));
+    //If you want to scope.apply, keep this.
+    beforeEach(module('peControllers'));
 
-    describe('display', function() {
-    	var env = {};
-        
-        var scope, ctrl;
-    	beforeEach(inject(function($rootScope) {
-            scope = $rootScope.$new();
-            inject(function($controller){
-                ctrl = $controller('MainController', {
-                    $scope: scope
-                });
-            });
-		}));
+    // You should only load the modules needed for tests
+    // All are loaded here as a matter of convenience
+    beforeEach(module('evo.evoTraining.services'));
 
-        it('should display message', function() {
-            scope.message.should.exist;
-            scope.message.should.equal('Hello world');
-        });
-	});
+
+    beforeEach(inject(function ($rootScope, $controller, _$log_, _evoAPI_, _zipService_, _$location_, _events_) {
+
+        events = _events_;
+        zipService = _zipService_;
+        scope = $rootScope.$new(); // Create fresh clean scope
+        evoAPI = _evoAPI_;
+        log = _$log_;
+        location = _$location_;
+        ctrl = $controller('MainController', {
+            $scope: scope,
+            events: events,
+            zipService: zipService,
+            evoAPI: evoAPI,
+            $log: log,
+            $location: location
+
+        }); // Controller should use our scope as its own
+
+    }));
+
+    it('should exist', function () {
+        expect(ctrl).to.not.be.undefined;
+    });
 });
-
 

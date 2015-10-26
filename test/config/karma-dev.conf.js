@@ -26,6 +26,7 @@ module.exports = function (config) {
             '../node_modules/sinon/lib/sinon/log_error.js',
             '../node_modules/sinon-chai/lib/sinon-chai.js',
             '../content/shared/public/monkeynaut/dist/js/bundle-core.js',
+            '../content/shared/public/angular/angular.js',
             '../content/shared/public/angular-mocks/angular-mocks.js',
             '../content/shared/public/jquery/jquery-2.1.0.min.js',
 
