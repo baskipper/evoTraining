@@ -90,7 +90,7 @@ describe('Edit Controller', function () {
             expect(scope.validUpdate()).to.be.true;
         });
 
-        it('should return false when at least condition is false', function(){
+        it('should return false when at least one condition is false', function(){
             scope.record = {
                 city: 'birmingham',
                 state: '',
