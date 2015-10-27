@@ -77,7 +77,7 @@ This handles the edit view, allowing for a single given record to be updated thr
 ./web/public/js/services/eventsSrvc.js
 ```
 
-These handle the loading GIF that I borrowed from MOBILETicket
+These handle the loading GIF
 
 ```
 ./config/providers/RESTprovider.js

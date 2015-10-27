@@ -13,7 +13,7 @@ var app = evo.module('peApp', [
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider.
         when('/', {
-            templateUrl: 'hello',
+            templateUrl: 'mainTable',
             controller: 'MainController'
         })
         .when('/edit/:id', {
@@ -207,8 +207,6 @@ evo.module('evo.evoTraining.services')
         var types = {
             VIEW_LOADING: 'viewLoading',
             VIEW_LOADED: 'viewLoaded',
-            TICKETS_REFRESHED: 'ticketsRefreshed',
-            ORDERS_REFRESHED: 'ordersRefreshed',
             API_TIMEOUT_ERROR: 'apiTimeout'
         };
         function dispatch(event, args) {
@@ -326,7 +324,7 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
         * */
         $rootScope.$on('addRecord', function (event, message) {
             events.dispatch(events.types.VIEW_LOADING);
-            console.log('zipService: Received event with message ' + JSON.stringify(message.data));
+            $log.debug('zipService: Received event with message ' + JSON.stringify(message.data));
             evoAPI.callFunction('addRecord', message.data)
                 .then(function () {
                     self.fetchSeed();
@@ -343,7 +341,7 @@ evo.module("evo.evoTraining.services", []).service("zipService", [
          * */
         $rootScope.$on('updateRecord', function (event, message) {
             events.dispatch(events.types.VIEW_LOADING);
-            console.log('zipService: Received event with message ' + JSON.stringify(message.data));
+            $log.debug('zipService: Received event with message ' + JSON.stringify(message.data));
             evoAPI.callFunction('updateRecord', message.data)
                 .then(function () {
                     self.fetchSeed();
